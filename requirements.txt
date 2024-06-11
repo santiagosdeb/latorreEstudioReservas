@@ -3,5 +3,5 @@ gspread
 numpy
 protobuf
 pytz
-streamlit
+streamlit==1.35.0
 streamlit_option_menu
