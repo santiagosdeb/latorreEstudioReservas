@@ -1,1 +1,3 @@
 secrets.toml
+.secrets.toml
+*.toml
