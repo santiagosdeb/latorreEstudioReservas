@@ -10,6 +10,8 @@ def send_email(email, nombre, fecha, hora, barber):
     password = st.secrets["emails"]["smtp_password"]
     email_sender = "Latorre Estudio"
     
+    fecha_modif = fecha.strftime("%d/%m/%Y")
+    
     #configuracion del servidor
     msg = MIMEMultipart()
     
@@ -27,8 +29,10 @@ def send_email(email, nombre, fecha, hora, barber):
     <body>
     <p>Hola {nombre},</p>
     <p>Tu turno fue reservado!</p>
-    <p>Te esperamos el {fecha}, a las {hora}hs.</p>
+    <p>Te esperamos el {fecha_modif}, a las {hora}hs.</p>
     <p>Elegiste a {barber} como tu peluquero.</p>
+    <p>En caso de querer cancelar el turno, por favor comunicarse por WhatsApp</p>
+    
     <p>Gracias por elegir Latorre Estudio.</p>
     <img src="cid:logo">
     </body>

@@ -27,7 +27,7 @@ barber = ["", "Juan"]
 document = "App-Reservas"
 sheet_name = "Reservas"
 credentials = st.secrets["credentials"]["credentials"]
-calendar_id = "santiagosanchezdeb@gmail.com"
+calendar_id = "juancholatorre7@gmail.com"
 timezone = "America/Buenos_Aires"
 
 #Funciones
@@ -133,17 +133,22 @@ if selected == "Reservar":
     c1,c2 = st.columns(2)
     
     nombre = c1.text_input("Nombre*")
-    celular = c2.text_input("Celular*")
-    email = c1.text_input("Email*")
+    celular = c2.text_input("Celular*", help="Celular: Por si necesitamos comunicarnos con vos")
+    email = c1.text_input("Email*", help="Email: Solo para confirmarte la reserva")
     barber = c2.selectbox("Barber*", barber)
-    fecha = c1.date_input("Fecha*", min_value=date.today())
+    fecha = c1.date_input("Fecha*", value=None, min_value=date.today(),format="DD/MM/YYYY",)
     if fecha:
-        calendar = GoogleCalendar(credentials,calendar_id)
-        reserved_hours = calendar.get_event_start_time(str(fecha))
-        available_hours = np.setdiff1d(horas, reserved_hours)
-    horario = c2.selectbox("Horario*", available_hours)
+        if fecha.weekday() == 0 or fecha.weekday() == 6:
+            st.warning("Estamos cerrados los lunes y domingos! Por favor, elegí otra fecha")
+        elif fecha == date.today():
+            st.warning("Para turnos en el dia comunicarse al WhatsApp")
+        else:
+            calendar = GoogleCalendar(credentials,calendar_id)
+            reserved_hours = calendar.get_event_start_time(str(fecha))
+            available_hours = np.setdiff1d(horas, reserved_hours)
+            horario = c2.selectbox("Horario*", available_hours)
     # servicio = c1.selectbox("Servicio", servicio)
-    notas = c1.text_area("Notas")
+    notas = st.text_area("Notas")
         
     reservar = st.button("Reservar")
     
