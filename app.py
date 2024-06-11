@@ -136,7 +136,7 @@ if selected == "Reservar":
     celular = c2.text_input("Celular*", help="Celular: Por si necesitamos comunicarnos con vos")
     email = c1.text_input("Email*", help="Email: Solo para confirmarte la reserva")
     barber = c2.selectbox("Barber*", barber)
-    fecha = c1.date_input("Fecha*", value=None, min_value=date.today(),format="DD/MM/YYYY",)
+    fecha = c1.date_input("Fecha*", value=None, min_value=date.today(),format="DD/MM/YYYY")
     if fecha:
         if fecha.weekday() == 0 or fecha.weekday() == 6:
             st.warning("Estamos cerrados los lunes y domingos! Por favor, elegí otra fecha")
